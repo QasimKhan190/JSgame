@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            text-align: center;
+            margin: 50px;
+        }
+        .choices button {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+        .choices img {
+            width: 100px;
+            height: 100px;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .selection {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .selection div {
+            margin: 0 20px;
+            text-align: center;
+        }
+        img{
+            border: 1px solid black;
+        }
+        h1{
+            text-decoration: underline;
+        }
+        #pgl{
+            display: inline-block;
+            width: 50px;
+            background-color: rgb(190, 5, 190);
+            border: none;
+            border-radius: 15px;
+            height: 30px;
+            color: white;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        #points{
+            display: block;
+        }
+        
+        </style>
+</head>
+<body>
+    <h1>Rock Paper Scissors</h1>
+    <h2>choose any one.</h2>
+    <div class="choices">
+        <button onclick="playGame('r')">
+            <img src="rock.png" alt="Rock">
+        </button>
+        <button onclick="playGame('p')">
+            <img src="paper.png" alt="Paper">
+        </button>
+        <button onclick="playGame('s')">
+            <img src="scissors.png" alt="Scissors">
+        </button>
+    </div>
+
+    <div class="selection">
+        <div>
+            <h3>Computer</h3>
+            <img id="computer-choice" src="" alt="" width="100">
+        </div>
+        <div>
+            <h3>You</h3>
+            <img id="user-choice" src="" alt="" width="100">
+        </div>
+    </div>
+    
+    <div id="result"></div>
+    <br>
+    <br>
+    <br>
+    <div id="points">
+        <b>points:</b>
+        <div id="ptotal">
+             
+        </div>
+        <div id="pcomputer">
+            
+        </div>
+        <div id="pyou">
+             
+        </div>
+        <div id="pdraw">
+             
+        </div>
+    </div>
+
+    <button id="pgl" onclick="pgl()">reset</button>
+    
+    <script>
+        let pc = 0 
+        let py = 0
+        let pd = 0
+        let pt = 0
+        function playGame(userChoice) {
+            pt++
+            const choices = { 'r': 'rock.png', 'p': 'paper.png', 's': 'scissors.png' };
+            const choiceNames = { 'r': 'Rock', 'p': 'Paper', 's': 'Scissors' };
+            const keys = Object.keys(choices);
+            
+            let computerChoice = keys[Math.floor(Math.random() * keys.length)];
+            
+            
+            document.getElementById("user-choice").src = choices[userChoice];
+            document.getElementById("computer-choice").src = choices[computerChoice];
+    
+            let resultText = `Computer chose: ${choiceNames[computerChoice]}<br>You chose: ${choiceNames[userChoice]}<br>`;
+    
+            if (computerChoice === userChoice) {
+                resultText += "It's a draw!";
+                pd++
+            } 
+            else if (
+                (computerChoice === 'r' && userChoice === 's') ||(computerChoice === 'p' && userChoice === 'r') ||(computerChoice === 's' && userChoice === 'p')) 
+            {
+                resultText += "You lose!";
+                pc++;
+            }
+             else {
+                resultText += "You win!";
+                py++; 
+            }
+    
+            document.getElementById("result").innerHTML = resultText;
+            document.getElementById('ptotal').innerText = `total: ${pt}`;
+            document.getElementById('pcomputer').innerText = `Computer: ${pc}`;
+            document.getElementById('pyou').innerText = `You: ${py}`;
+            document.getElementById('pdraw').innerText = `draw: ${pd}`;
+        }
+        
+        function pgl() {
+            location.reload();
+        }
+   
+    </script>
+    
+</body>
+</html> 
